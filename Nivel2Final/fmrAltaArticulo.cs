@@ -33,11 +33,12 @@ namespace Nivel2Final
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            //Articulo nuevo = new Articulo();
+
             ArticuloNegocio negocio = new ArticuloNegocio();
 
             try
             {
+
                 if (articulo == null)
                 { articulo = new Articulo(); }
 
@@ -45,23 +46,26 @@ namespace Nivel2Final
                 articulo.Nombre = txtNombre.Text;
                 articulo.Descripcion = txtDescripcion.Text;
                 articulo.ImagenUrl = txtImagenUrl.Text;
-                articulo.Precio =decimal.Parse(txtPrecio.Text);
+                articulo.Precio = decimal.Parse(txtPrecio.Text);
                 articulo.marca = (Marca)cbMarcas.SelectedItem;
                 articulo.categoria = (Categoria)cbCategorias.SelectedItem;
 
-                if(articulo.IdArticulo != 0)
+                if (articulo.IdArticulo != 0)
                 {
-                negocio.Modificar(articulo);
-                MessageBox.Show("Articulo Modificado");
+                    negocio.Modificar(articulo);
+                    MessageBox.Show("Articulo Modificado");
                 }
                 else
                 {
-                negocio.Agregar(articulo);
-                MessageBox.Show("Articulo Agregado");
+
+
+                    negocio.Agregar(articulo);
+                    MessageBox.Show("Articulo Agregado");
+
                 }
 
                 Close();
-                
+
             }
             catch (Exception ex)
             {
@@ -77,25 +81,25 @@ namespace Nivel2Final
             try
             {
                 cbCategorias.DataSource = cat.listar();
-               cbCategorias.ValueMember = "IdCategoria";
+                cbCategorias.ValueMember = "IdCategoria";
                 cbCategorias.DisplayMember = "Descripcion";
-      
+
                 cbMarcas.DataSource = marca.listar();
                 cbMarcas.ValueMember = "IdMarca";
                 cbMarcas.DisplayMember = "Descripcion";
 
-                if (articulo!=null)
+                if (articulo != null)
                 {
                     txtCodigo.Text = articulo.Codigo;
                     txtDescripcion.Text = articulo.Descripcion;
-                
+
                     txtImagenUrl.Text = articulo.ImagenUrl;
                     CargarImagen(articulo.ImagenUrl);
                     txtNombre.Text = articulo.Nombre;
-                    txtPrecio.Text =articulo.Precio.ToString();
+                    txtPrecio.Text = articulo.Precio.ToString();
                     cbCategorias.SelectedValue = articulo.categoria.IdCategoria;
                     cbMarcas.SelectedValue = articulo.marca.IdMarca;
-                    
+
 
                 }
             }
@@ -106,13 +110,7 @@ namespace Nivel2Final
             }
         }
 
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-           
-                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-                { e.Handled = true; }
-          
-        }
+
 
         private void txtImagenUrl_Leave(object sender, EventArgs e)
         {
@@ -129,6 +127,25 @@ namespace Nivel2Final
 
                 pbxArticuloAlta.Load("https://thealmanian.com/wp-content/uploads/2019/01/product_image_thumbnail_placeholder.png");
             }
+        }
+
+       private void txtPrecio_TextChanged(object sender, EventArgs e)
+        {
+            if (!(SoloNumeros(txtPrecio.Text)))
+            {
+                MessageBox.Show("Ingrese solo números", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+        private bool SoloNumeros(string numeros)
+        {
+            foreach (char caracter in numeros)
+            {
+                if (!(char.IsDigit(caracter)) && !(char.IsPunctuation(caracter)))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

@@ -185,7 +185,7 @@ namespace Nivel2Final
             this.txtPrecio.Name = "txtPrecio";
             this.txtPrecio.Size = new System.Drawing.Size(128, 20);
             this.txtPrecio.TabIndex = 7;
-            this.txtPrecio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
+            this.txtPrecio.TextChanged += new System.EventHandler(this.txtPrecio_TextChanged);
             // 
             // pbxArticuloAlta
             // 
