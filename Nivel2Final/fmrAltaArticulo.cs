@@ -52,13 +52,19 @@ namespace Nivel2Final
 
                 if (articulo.IdArticulo != 0)
                 {
-                    negocio.Modificar(articulo);
-                    MessageBox.Show("Articulo Modificado");
+                    DialogResult respuesta = MessageBox.Show("El registro se modificará permanentemente  \t                                               ¿ Estás seguro ?", "Modificando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        negocio.Modificar(articulo);
+                        MessageBox.Show("Articulo Modificado");
+                    }
+                    if (respuesta == DialogResult.No)
+                    {
+                        Close();
+                    }
                 }
                 else
-                {
-
-
+                { 
                     negocio.Agregar(articulo);
                     MessageBox.Show("Articulo Agregado");
 
@@ -122,7 +128,7 @@ namespace Nivel2Final
             {
                 pbxArticuloAlta.Load(imagen);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 pbxArticuloAlta.Load("https://thealmanian.com/wp-content/uploads/2019/01/product_image_thumbnail_placeholder.png");

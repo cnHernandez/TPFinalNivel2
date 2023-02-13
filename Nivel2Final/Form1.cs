@@ -59,7 +59,7 @@ namespace Nivel2Final
             {
                 pbxImagenUrl.Load(imagen);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 pbxImagenUrl.Load("https://thealmanian.com/wp-content/uploads/2019/01/product_image_thumbnail_placeholder.png");
@@ -86,15 +86,11 @@ namespace Nivel2Final
                 Articulo seleccion;
                 if (dgvArticulos.CurrentRow != null)
                 {
-                    DialogResult respuesta = MessageBox.Show("El registro se modificará permanentemente  \t                                               ¿ Estás seguro ?", "Modificando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    if (respuesta == DialogResult.Yes)
-                    {
-                        seleccion = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                    seleccion = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
                         fmrAltaArticulo modificar = new fmrAltaArticulo(seleccion);
                         modificar.ShowDialog();
                         Cargar();
                     }
-                }
                 else
                 {
                     MessageBox.Show("seleccione un articulo para modificar", "alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
